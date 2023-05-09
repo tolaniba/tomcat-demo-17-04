@@ -35,8 +35,14 @@ pipeline {
         }
      stage('Tomcat-deployment') {
             steps {
-                sh 'mvn clean'
+                sshagent(['tomcat-credentials']) {
+                    sh """
+                        scp -o StrictHostKeyChecking=no target/tomcat-demo.war ec2-user@54.211.231.131:/opt/tomcat/webapps/  
+			ssh ec2-user@54.211.231.131 /opt/tomcat/bin/shutdown.sh
+			ssh ec2-user@54.211.231.131 /opt/tomcat/bin/startup.sh
+                    """
             }
         }
     }
-} 
+   } 
+ } 
