@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('SCM-Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/tolaniba/my-app-12-04.git'
+                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/tolaniba/tomcat-demo-17-04.git'
             }
         }
     stage('build') {
@@ -45,4 +45,4 @@ pipeline {
         }
     }
    } 
- }
+ } 
