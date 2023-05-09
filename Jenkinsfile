@@ -28,20 +28,15 @@ pipeline {
                }
             }
           }
-     stage('Package') {
+     stage('package') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean compile package'
+		
             }
         }
      stage('Tomcat-deployment') {
             steps {
-                sshagent(['tomcat-credentials']) {
-                    sh """
-                        scp -o StrictHostKeyChecking=no target/tomcat-demo.war ec2-user@44:204:177:252:/opt/tomcat/webapps/  
-			ssh ec2-user@44:204:177:252 /opt/tomcat/bin/shutdown.sh
-			ssh ec2-user@44:204:177:252 /opt/tomcat/bin/startup.sh
-                    """
-            }
+                echo 'Tomcat-Deployment'
         }
     }
    } 
